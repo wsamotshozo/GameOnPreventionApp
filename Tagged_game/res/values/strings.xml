@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tagged_game</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Paired Devices</string>
+    <string name="discovered_device">Discoverd Devices</string>
+    
+
+</resources>

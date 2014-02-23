@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">patients</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="token">Token</string>
+    <string name="points">Credibility points</string>
+    <string name="doctors_manual">Doctors Manual</string>
+    <string name="instant_diagnosis">Instant Diagnoses</string>
+    <string name="medical_lab">Medical Lab</string>
+    <string name="treat">Treat</string>
+
+    <array name="patient">
+        <item>mary</item>
+        <item>Tom</item>
+        <item>ada</item>
+        <item>jaden</item>
+        <item>fatima</item>
+        <item>jerome</item>
+        <item>sasha</item>
+    </array>
+
+    <string name="title_activity_assess">Assess</string>
+
+</resources>

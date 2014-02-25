@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name="com.hu.patients.GameActivity"
-            android:label="@string/title_activity_game" >
+            android:label="@string/title_activity_game"
+        	android:screenOrientation="landscape" >
                         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

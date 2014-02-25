@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:text="@string/token" />
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:text="@string/points" />
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -54,13 +54,6 @@
         android:layout_height="0dip"
         android:layout_weight="0.16" >
     </ListView>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/treat" />
-
 </LinearLayout>
 <LinearLayout 
     android:layout_width="match_parent"
@@ -69,7 +62,7 @@
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-     android:orientation="horizontal">
+    android:orientation="horizontal">
 
 <Button
         android:id="@+id/queue"
@@ -86,24 +79,23 @@
         android:id="@+id/patientDataFullView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="58dp"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
             <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
      android:orientation="horizontal">
     <Button
-        android:id="@+id/buttonInstantDiagnose"
+        android:id="@+id/approve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/instant_diagnosis" />
+        android:text="@string/approve" />
 
     <Button
-        android:id="@+id/buttonMedicalLab"
+        android:id="@+id/decline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/medical_lab" />
+        android:text="@string/decline" />
 </LinearLayout>
 
 

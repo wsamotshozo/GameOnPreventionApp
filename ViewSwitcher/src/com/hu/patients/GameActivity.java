@@ -3,7 +3,10 @@ package com.hu.patients;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.hu.patients.models.patient;
+import com.hu.patients.models.Constants;
+import com.hu.patients.models.Disease;
+import com.hu.patients.models.Constants;
+import com.hu.patients.models.Patient;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -28,7 +31,7 @@ public class GameActivity extends Activity implements OnClickListener,
 	String gotBread;
 	ViewSwitcher switcher;
 	Button queue;
-	ArrayList<patient> line = new ArrayList<patient>();
+	ArrayList<Patient> line = new ArrayList<Patient>();
 	ArrayList<String> patientNames = new ArrayList<String>();
 	int currentPatient;
 	ListView patientList;
@@ -37,7 +40,7 @@ public class GameActivity extends Activity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game);
+		setContentView(R.layout.activity_game); 
 
 		switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
 		displayData = (TextView) findViewById(R.id.patientDataFullView);
@@ -122,6 +125,7 @@ public class GameActivity extends Activity implements OnClickListener,
 		line.remove(patient);
 		patientNames.remove(patient);
 		padapter.notifyDataSetChanged();
+		addPatient();
 	}
 	public void addPatient() {
 		Random gen = new Random();
@@ -139,9 +143,11 @@ public class GameActivity extends Activity implements OnClickListener,
 			name = names[gen.nextInt(names.length)];
 		}
 		if (gen.nextBoolean()) {
-			line.add((new patient(name, sex, gotBread, gotBread, gotBread)).setFake(true, 0));
+			Disease temp = Constants.realDisease[gen.nextInt(Constants.realDisease.length)];
+			line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(false, 0));
 		} else {
-			line.add((new patient(name, sex, gotBread, gotBread, gotBread)).setFake(false, 0));
+			Disease temp = Constants.fakeDisease[gen.nextInt(Constants.fakeDisease.length)];
+			line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(true, 0));
 		}
 		patientNames.add(name);
 	}

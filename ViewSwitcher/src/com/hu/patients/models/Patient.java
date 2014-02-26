@@ -22,7 +22,16 @@ public class Patient {
 	}
 	public Patient setFake(boolean ake, int difficulty)
 	{
-		fake = ake;
+		if(ake)
+		{
+			fake = true;
+			disease = "codon Zero";
+		}
+		else
+		{
+			fake = false;
+			disease = "Herpes";
+		}
 		return this;
 	}
 	public String toString(){

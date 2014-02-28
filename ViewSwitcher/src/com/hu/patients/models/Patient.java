@@ -43,6 +43,12 @@ public class Patient {
 				"\nSymptoms: " + symptoms+
 				"\nDisease: " + disease;
 	}
+	public String lvlOneToString()
+	{
+		return "Name: "+ name+
+				"\nSex: "+ getSex()+
+				"\nDisease: " +disease;
+	}
 	public String getSex(){
 		if(sex)
 		{

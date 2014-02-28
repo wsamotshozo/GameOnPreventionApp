@@ -10,6 +10,7 @@ import com.hu.patients.models.Patient;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,11 +37,13 @@ public class GameActivity extends Activity implements OnClickListener,
 	int currentPatient;
 	ListView patientList;
 	ArrayAdapter<String> padapter;
+	Patient patientObj;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game); 
+		patientObj = new Patient();
 
 		switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
 		displayData = (TextView) findViewById(R.id.patientDataFullView);
@@ -95,6 +98,7 @@ public class GameActivity extends Activity implements OnClickListener,
 			{
 				if(line.get(currentPatient).fake)
 				{
+					
 					Toast.makeText(this, "The disease does not match with the patient", Toast.LENGTH_SHORT).show();
 				}
 				removePatient(currentPatient);
@@ -117,6 +121,7 @@ public class GameActivity extends Activity implements OnClickListener,
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		displayData.setText(line.get(arg2).toString());
+		displayData.setMovementMethod(new ScrollingMovementMethod());
 		currentPatient = arg2;
 		switcher.showNext();
 
@@ -144,9 +149,11 @@ public class GameActivity extends Activity implements OnClickListener,
 		}
 		if (gen.nextBoolean()) {
 			Disease temp = Constants.realDisease[gen.nextInt(Constants.realDisease.length)];
+			//patientObj.setFake(true, 1);
 			line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(false, 0));
 		} else {
 			Disease temp = Constants.fakeDisease[gen.nextInt(Constants.fakeDisease.length)];
+			//patientObj.setFake(false, 2);
 			line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(true, 0));
 		}
 		patientNames.add(name);

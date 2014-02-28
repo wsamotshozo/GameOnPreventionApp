@@ -13,6 +13,7 @@ public class Patient {
 	public String practice; //sexual practice
 	public String symptoms;
 	public String disease;
+	public Patient(){};
 	public Patient(String ame, boolean ex, String ractice, String ymptoms, String isease){
 		name = ame;
 		sex = ex;
@@ -25,12 +26,12 @@ public class Patient {
 		if(ake)
 		{
 			fake = true;
-			disease = "codon Zero";
+			//disease = "codon Zero";
 		}
 		else
 		{
 			fake = false;
-			disease = "Herpes";
+			//disease = "Herpes";
 		}
 		return this;
 	}

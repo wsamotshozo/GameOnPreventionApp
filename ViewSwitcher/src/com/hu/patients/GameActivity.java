@@ -27,8 +27,9 @@ import android.widget.ViewSwitcher;
 public class GameActivity extends Activity implements OnClickListener,
 		OnItemClickListener {
 	TextView displayData;
-	Button inst_Diagnose, MedLab, Manual, approve, decline;
+	TextView displayPoints;
 	String gotBread;
+	Button inst_Diagnose, MedLab, Manual, approve, decline;
 	ViewSwitcher switcher;
 	Button queue;
 	ArrayList<Patient> line = new ArrayList<Patient>();
@@ -36,19 +37,39 @@ public class GameActivity extends Activity implements OnClickListener,
 	int currentPatient;
 	ListView patientList;
 	ArrayAdapter<String> padapter;
-	Patient patientObj;
-	int levelIdentifier = 1;
-	int levelOnePoints;
-	int levelTwoPoints;
+	
+	/*
+	 * 
+	 * 
+	 */
+	int level = 1;
+	int credPoints = 0;
+	int numCorrect = 0;
+	int numWrong = 0;
+	int stage = 5; ///THe number used to deteremine whethere or not to go to the next stage
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game); 
 		
-		
-		init(); // initialise view objects
-		// Previous = (Button) findViewById(R.id.Previous);
 
+		// Previous = (Button) findViewById(R.id.Previous);
+		 // initialise view objects
+		switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
+		displayData = (TextView) findViewById(R.id.patientDataFullView);
+		displayData.setMovementMethod(new ScrollingMovementMethod());// Setting the text to be scrollable
+
+		//queue = (Button) findViewById(R.id.queue);
+		//queue.setOnClickListener(this);
+
+		approve = (Button) findViewById(R.id.approve);
+		decline = (Button) findViewById(R.id.decline);
+		approve.setOnClickListener(this);
+		decline.setOnClickListener(this);
+		
+		displayPoints = (TextView)findViewById(R.id.points);
+		displayPoints.setText(String.valueOf(credPoints));
+				
 		// generate ten patients
 		for (int i = 0; i < 10; i++) {
 			addPatient();
@@ -61,21 +82,6 @@ public class GameActivity extends Activity implements OnClickListener,
 
 	}
 
-	private void init() {
-		patientObj = new Patient();
-
-		switcher = (ViewSwitcher) findViewById(R.id.ViewSwitcher);
-		displayData = (TextView) findViewById(R.id.patientDataFullView);
-
-		queue = (Button) findViewById(R.id.queue);
-		queue.setOnClickListener(this);
-
-		approve = (Button) findViewById(R.id.approve);
-		decline = (Button) findViewById(R.id.decline);
-		approve.setOnClickListener(this);
-		decline.setOnClickListener(this);
-		
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,7 +100,7 @@ public class GameActivity extends Activity implements OnClickListener,
 		 * startActivity(setIntent);
 		 */
 		// TODO make abetter flow of control
-		switcher.showPrevious();
+		//switcher.showPrevious();
 	}
 
 	@Override
@@ -112,12 +118,9 @@ public class GameActivity extends Activity implements OnClickListener,
 				else
 				{
 					Toast.makeText(this, "Good job you got it correct", Toast.LENGTH_SHORT).show();
-					levelOnePoints++;
-					if(levelOnePoints == 5)
-					{
-						levelIdentifier = 2;
-						Toast.makeText(this, "Get Ready for level Two Presciptions", Toast.LENGTH_LONG).show();
-					}
+					numCorrect++;
+					credPoints++;
+					displayPoints.setText(String.valueOf(credPoints));
 				}
 				removePatient(currentPatient);
 				
@@ -131,14 +134,16 @@ public class GameActivity extends Activity implements OnClickListener,
 				else
 				{
 					Toast.makeText(this, "Good job you got it correct", Toast.LENGTH_SHORT).show();
-					levelOnePoints++;
-					if(levelOnePoints == 5)
-					{
-						levelIdentifier = 2;
-						Toast.makeText(this, "Get Ready for level Two Presciptions", Toast.LENGTH_LONG).show();
-					}
+					numCorrect++;
+					credPoints++;
+					displayPoints.setText(String.valueOf(credPoints));
 				}
 				removePatient(currentPatient);
+			}
+			if(numCorrect % stage == 0 && level < 3  && credPoints >0)
+			{
+				level ++;
+				Toast.makeText(this, "Get Ready for level"+level+" Presciptions", Toast.LENGTH_LONG).show();
 			}
 			switcher.showPrevious();
 		}
@@ -148,12 +153,7 @@ public class GameActivity extends Activity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		if(levelIdentifier == 1){
-			displayData.setText(line.get(arg2).lvlOneToString());
-		}else{
-			displayData.setText(line.get(arg2).toString());
-		}
-		displayData.setMovementMethod(new ScrollingMovementMethod());// Setting the text to be scrollable
+		displayData.setText(line.get(arg2).toString(level));
 		currentPatient = arg2;
 		switcher.showNext();
 
@@ -164,53 +164,44 @@ public class GameActivity extends Activity implements OnClickListener,
 		padapter.notifyDataSetChanged();
 		addPatient();
 	}
+	//TODO generate a totally new queue when level increases.
 	public void addPatient() {
 		Random gen = new Random();
 		boolean sex = gen.nextBoolean();
 		String name;
-		int partners;
+		/*int partners;
 		String practice; // sexual practice
 		String symptoms;
-		String disease;
+		String disease;*/
+		if (sex) {
+			String[] names = getResources().getStringArray(R.array.MaleNames);
+			name = names[gen.nextInt(names.length)];
+		} else {
+			String[] names = getResources().getStringArray(R.array.FemaleNames);
+			name = names[gen.nextInt(names.length)];
+		}
 		//implementing level switch
-		if(levelIdentifier == 1){
-			if (sex) {
-				String[] names = getResources().getStringArray(R.array.MaleNames);
-				name = names[gen.nextInt(names.length)];
-			} else {
-				String[] names = getResources().getStringArray(R.array.FemaleNames);
-				name = names[gen.nextInt(names.length)];
-			}
+		if(level == 1){
 			if (gen.nextBoolean()) {
 				Disease temp = Constants.realDisease[gen.nextInt(Constants.realDisease.length)];
-				//patientObj.setFake(true, 1);
-				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(false, 0));
+				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name, gotBread)));
+				Log.i("disease", temp.name);
 			} else {
 				Disease temp = Constants.fakeDisease[gen.nextInt(Constants.fakeDisease.length)];
-				//patientObj.setFake(false, 2);
-				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(true, 0));
+				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name,gotBread, " ")));
+				Log.i("disease", temp.name);
 			}
-			patientNames.add(name);
 		}
 		else // implementing level switch
 		{
-			if (sex) {
-				String[] names = getResources().getStringArray(R.array.MaleNames);
-				name = names[gen.nextInt(names.length)];
-			} else {
-				String[] names = getResources().getStringArray(R.array.FemaleNames);
-				name = names[gen.nextInt(names.length)];
-			}
 			if (gen.nextBoolean()) {
 				Disease temp = Constants.realDisease[gen.nextInt(Constants.realDisease.length)];
-				//patientObj.setFake(true, 1);
-				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(false, 0));
+				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name,gotBread)));
 			} else {
 				Disease temp = Constants.level2FakeDiseas[gen.nextInt(Constants.fakeDisease.length)];
-				//patientObj.setFake(false, 2);
-				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name)).setFake(true, 0));
+				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name,gotBread, " ")));
 			}
-			patientNames.add(name);
 		}
+		patientNames.add(name);
 	}
 }

@@ -1,6 +1,7 @@
 package com.hu.patients;
 
 import java.util.ArrayList;
+import com.hu.patients.utils.PatientAdapter;
 import java.util.Random;
 
 import com.hu.patients.models.Constants;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 //Also note we can also add side swipe to change views
+//TODO show full toast messag before view switch
 public class GameActivity extends Activity implements OnClickListener,
 		OnItemClickListener {
 	TextView displayData;
@@ -36,8 +38,8 @@ public class GameActivity extends Activity implements OnClickListener,
 	ArrayList<String> patientNames = new ArrayList<String>();
 	int currentPatient;
 	ListView patientList;
-	ArrayAdapter<String> padapter;
-	
+	//ArrayAdapter<String> padapter;
+	PatientAdapter  padapter;
 	/*
 	 * 
 	 * 
@@ -75,8 +77,9 @@ public class GameActivity extends Activity implements OnClickListener,
 			addPatient();
 		}
 		patientList = (ListView) findViewById(R.id.names);
-		padapter = new ArrayAdapter(this,
-				android.R.layout.simple_list_item_1, patientNames);
+		padapter = new PatientAdapter(this, line);
+		/*padapter = new ArrayAdapter(this,padapter
+				android.R.layout.simple_list_item_1, patientNames);*/
 		patientList.setAdapter(padapter);
 		patientList.setOnItemClickListener(this);
 
@@ -152,7 +155,6 @@ public class GameActivity extends Activity implements OnClickListener,
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 		displayData.setText(line.get(arg2).toString(level));
 		currentPatient = arg2;
 		switcher.showNext();
@@ -198,7 +200,7 @@ public class GameActivity extends Activity implements OnClickListener,
 				Disease temp = Constants.realDisease[gen.nextInt(Constants.realDisease.length)];
 				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name,gotBread)));
 			} else {
-				Disease temp = Constants.level2FakeDiseas[gen.nextInt(Constants.fakeDisease.length)];
+				Disease temp = Constants.level2FakeDisease[gen.nextInt(Constants.level2FakeDisease.length)];
 				line.add((new Patient(name, sex, gotBread, temp.symptom, temp.name,gotBread, " ")));
 			}
 		}

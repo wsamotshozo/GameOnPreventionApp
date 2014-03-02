@@ -53,6 +53,9 @@ public class Patient {
 	/*
 	 * Output the String values based of the object based on the info
 	 */
+	public String toString(){
+		return name;
+	}
 	public String toString(int info){
 switch(info)
 {

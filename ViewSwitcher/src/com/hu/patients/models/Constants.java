@@ -74,7 +74,7 @@ public class Constants {
 			new Disease("Influenza",
 					"Fever,cough, runny nose and nasal congestion", "", "") };
 
-	public final static Disease[] level2FakeDiseas = {
+	public final static Disease[] level2FakeDisease = {
 			new Disease("chlamydia", "Abnormal Menstrual Bleeding", "", ""),
 			new Disease("chlamydia", "Painful or swollen Testicles", "", ""),
 			new Disease("chlamydia", "Itching or irritation inside the penis",

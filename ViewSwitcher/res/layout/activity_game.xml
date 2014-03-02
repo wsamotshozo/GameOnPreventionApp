@@ -1,65 +1,75 @@
 <ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ViewSwitcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ViewSwitcher"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GameActivity" >
 
-<LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-  <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/token" />
+            android:orientation="horizontal" >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/token"
-            android:layout_weight="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/token" />
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:text="@string/points" />
+            <TextView
+                android:id="@+id/token"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:layout_weight="1"
-            android:id="@+id/points" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:text="@string/points" />
+
+            <TextView
+                android:id="@+id/points"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/names"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.16" >
+        </ListView>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/names"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.16" >
-    </ListView>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <!--
 <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     android:orientation="vertical">
-    <!-- <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -74,35 +84,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/doctors_manual" />
-    </LinearLayout> -->
-   
-        <TextView
-        android:id="@+id/patientDataFullView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceLarge" /> 
-        
-            <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-     android:orientation="horizontal">
-    <Button
-        android:id="@+id/approve"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/approve" />
+    </LinearLayout>
+            -->
 
-    <Button
-        android:id="@+id/decline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/decline" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/patientDataFullView"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
+                <Button
+                    android:id="@+id/approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/approve" />
 
+                <Button
+                    android:id="@+id/decline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/decline" />
+            </LinearLayout>
+        </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/border" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/hello_world"
+                android:src="@drawable/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/prev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/previous" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </ViewSwitcher>

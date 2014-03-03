@@ -32,7 +32,6 @@ public class PatientAdapter extends ArrayAdapter<Patient> {
 	    TextView textView = (TextView) rowView.findViewById(R.id.name);
 	    ImageView imageView = (ImageView) rowView.findViewById(R.id.face);
 	    textView.setText(values.get(position).toString());
-	    // Change the icon for Windows and iPhone
 	    
 	    if (values.get(position).sex) {
 	    	imageView.setImageResource(R.drawable.alien_borg);

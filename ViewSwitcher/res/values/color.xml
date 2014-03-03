@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="solar">#FEC434</color><!-- main -->
+    <color name="flare">#FE5E33</color><!-- red -->
+    <color name="core">#D3FE33</color><!-- off shade -->
+    <color name="comet">#336DFE</color><!-- complimentary blue -->
+    <color name="eclipse">#33FEC4</color><!-- triadic blue -->
+    <color name="nova">#C433FE</color><!-- triadic purple -->
+</resources>
